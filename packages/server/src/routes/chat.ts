@@ -2,6 +2,8 @@ import { Elysia, t } from 'elysia';
 import { getPineconeClient, queryPinecone } from '../services/pinecone';
 import { getLlamaAnswer, callOllamaDirectly } from '../services/llama';
 
+import z from 'zod';
+
 // --- Constants ---
 const INDEX_NAME = 'medical-chatbot-1';
 const MEDICAL_KEYWORDS = [
@@ -26,22 +28,31 @@ const MEDICAL_KEYWORDS = [
  */
 function isHealthQuery(question: string): boolean {
     const lowerCaseQuestion = question.toLowerCase();
-    return MEDICAL_KEYWORDS.some((keyword) =>
+    return MEDICAL_KEYWORDS.some(keyword =>
         lowerCaseQuestion.includes(keyword)
     );
 }
 
+const chatSchema = z.object({
+    question: z
+        .string()
+        .trim()
+        .min(1, 'Prompt is required.')
+        .max(1000, 'Prompt is too long. Maximum length is 1000 characters.'),
+    conversationId: z.string().uuid(),
+});
 export const chatRoutes = new Elysia({ prefix: '/api/chat' }).post(
     '/',
     async ({ body, set }) => {
+        const validatedBody = chatSchema.safeParse(body);
+
+        if (!validatedBody.success) {
+            set.status = 400;
+            return { error: validatedBody.error.format() };
+        }
         console.log('[API] Chat request received');
         console.log(body);
         const { question } = body;
-
-        if (!question) {
-            set.status = 400;
-            return { error: 'Question is required' };
-        }
 
         let answer: string;
 
@@ -75,6 +86,7 @@ export const chatRoutes = new Elysia({ prefix: '/api/chat' }).post(
     {
         body: t.Object({
             question: t.String(),
+            conversationId: t.String(),
         }),
     }
 );
