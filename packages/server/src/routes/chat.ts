@@ -57,24 +57,24 @@ export const chatRoutes = new Elysia({ prefix: '/api/chat' }).post(
         let answer: string;
 
         try {
-            if (isHealthQuery(question)) {
-                console.log('[API] Mode: HEALTH → Pinecone');
-                const pineconeClient = await getPineconeClient();
-                const context = await queryPinecone(
-                    pineconeClient,
-                    INDEX_NAME,
-                    question
-                );
+            // if (isHealthQuery(question)) {
+            //     console.log('[API] Mode: HEALTH → Pinecone');
+            //     const pineconeClient = await getPineconeClient();
+            //     const context = await queryPinecone(
+            //         pineconeClient,
+            //         INDEX_NAME,
+            //         question
+            //     );
 
-                if (context) {
-                    answer = await getLlamaAnswer(context, question);
-                } else {
-                    answer = 'I don’t have enough medical data to answer that.';
-                }
-            } else {
-                console.log('[API] Mode: GENERAL → LLM');
-                answer = await callOllamaDirectly(question);
-            }
+            //     if (context) {
+            //         answer = await getLlamaAnswer(context, question);
+            //     } else {
+            //         answer = 'I don’t have enough medical data to answer that.';
+            //     }
+            // } else {
+            console.log('[API] Mode: GENERAL → LLM');
+            answer = await callOllamaDirectly(question);
+            // }
 
             return { answer };
         } catch (error) {
