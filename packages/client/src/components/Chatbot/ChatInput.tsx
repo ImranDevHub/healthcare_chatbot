@@ -1,7 +1,7 @@
 import type { KeyboardEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaArrowUp } from 'react-icons/fa';
-import processing from '../../assets/images/icons8-rhombus-loader.gif';
+import { FaRegSquare } from 'react-icons/fa';
 import { Button } from '../ui/button';
 
 export type ChatFormData = {
@@ -41,19 +41,15 @@ const ChatInput = ({ onSubmit, isBotActive }: Props) => {
                     validate: value => value.trim().length > 0,
                 })}
                 autoFocus
-                placeholder="ask me anything..."
+                placeholder="Ask me anything..."
                 maxLength={1000}
                 className="w-full border-0 focus:outline-0 resize-none bg-transparent text-gray-200"
             />
             <Button
                 disabled={!formState.isValid || !isBotActive}
-                className="rounded-full w-9 h-9 bg-gray-200"
+                className="rounded-full w-9 h-9 bg-gray-200 text-black"
             >
-                {isBotActive ? (
-                    <FaArrowUp className="text-black" />
-                ) : (
-                    <img src={processing} />
-                )}
+                {isBotActive ? <FaArrowUp /> : <FaRegSquare />}
             </Button>
         </form>
     );

@@ -1,19 +1,15 @@
-import 'dotenv/config';
 import { Elysia } from 'elysia';
 import { cors } from '@elysiajs/cors';
+import { authRoutes } from './routes/auth';
 import { chatRoutes } from './routes/chat';
 
-const PORT = process.env.PORT || 3000;
+const app = new Elysia()
+    .use(cors())
+    .use(authRoutes)
+    .use(chatRoutes)
+    .get('/', () => 'Server is running')
+    .listen(3000);
 
-const app = new Elysia();
-
-app.use(cors());
-app.use(chatRoutes);
-
-app.get('/', () => {
-    return { message: 'Server is running' };
-});
-
-app.listen(PORT, () => {
-    console.log(`🦊 Server is listening on http://localhost:${PORT}`);
-});
+console.log(
+    `🦊 Server is running at ${app.server?.hostname}:${app.server?.port}`
+);
