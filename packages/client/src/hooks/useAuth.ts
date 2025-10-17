@@ -6,7 +6,6 @@ import {
     signOut,
     signInWithPopup,
     GoogleAuthProvider,
-    signInAnonymously,
 } from 'firebase/auth';
 import { auth } from '../firebase';
 import * as authService from '../services/authService';
@@ -45,6 +44,7 @@ export const useAuth = () => {
     };
 
     const logout = () => {
+        localStorage.removeItem('activeConversation');
         return signOut(auth);
     };
 

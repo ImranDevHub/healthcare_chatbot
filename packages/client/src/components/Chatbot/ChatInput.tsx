@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FaArrowUp } from 'react-icons/fa';
 import { FaRegSquare } from 'react-icons/fa';
 import { Button } from '../ui/button';
+import { Textarea } from '../ui/textarea';
 
 export type ChatFormData = {
     question: string;
@@ -35,19 +36,20 @@ const ChatInput = ({ onSubmit, isBotActive }: Props) => {
             onKeyDown={isBotActive ? handleKeyDown : undefined}
             className="p-2 flex flex-col gap-2 items-end border-1 border-zinc-500 rounded-2xl bg-neutral-800/10 backdrop-blur max-w-10/12 "
         >
-            <textarea
+            <Textarea
                 {...register('question', {
                     required: true,
                     validate: value => value.trim().length > 0,
                 })}
                 autoFocus
-                placeholder="Ask me anything..."
+                placeholder="Ask  anything..."
                 maxLength={1000}
-                className="w-full border-0 focus:outline-0 resize-none bg-transparent text-gray-200"
+                className="w-full border-0 focus-visible:ring-0 bg-transparent text-gray-200"
             />
+
             <Button
                 disabled={!formState.isValid || !isBotActive}
-                className="rounded-full w-9 h-9 bg-gray-200 text-black"
+                className="rounded-full w-9 h-9 bg-gray-200 text-black "
             >
                 {isBotActive ? <FaArrowUp /> : <FaRegSquare />}
             </Button>
