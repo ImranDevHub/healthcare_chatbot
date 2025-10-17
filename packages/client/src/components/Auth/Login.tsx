@@ -1,6 +1,7 @@
 // src/components/LoginForm.tsx
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
     const { login, googleLogin, guestLogin } = useAuth();
@@ -71,6 +72,7 @@ export default function Login() {
             <button onClick={onGuestSignIn} style={{ padding: 8 }}>
                 Sign in as Guest
             </button>
+            <Link to="/signup">You Don't have an account?Signup..</Link>
         </div>
     );
 }

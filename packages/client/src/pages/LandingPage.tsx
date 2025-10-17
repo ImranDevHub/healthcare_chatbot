@@ -1,11 +1,13 @@
 import React from 'react';
+import Hero from './Hero';
+import FeatureSection from './Feature';
 
 const LandingPage: React.FC = () => {
     return (
         <>
             <main>
                 {/* Hero Section */}
-                <section className="bg-blue-600 text-white text-center py-20">
+                {/* <section className="bg-blue-600 text-white text-center py-20">
                     <h1 className="text-5xl font-bold mb-4">
                         Welcome to ሸጋ-Health
                     </h1>
@@ -18,10 +20,11 @@ const LandingPage: React.FC = () => {
                     >
                         Get Started
                     </a>
-                </section>
+                </section> */}
+                <Hero />
             </main>
             {/* Features Section */}
-            <section className="py-20">
+            {/* <section className="py-20">
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl font-bold text-center mb-12">
                         Our Features
@@ -56,7 +59,8 @@ const LandingPage: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
+            <FeatureSection />
         </>
     );
 };

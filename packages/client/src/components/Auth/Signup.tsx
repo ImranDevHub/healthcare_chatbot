@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function Signup() {
     const { signup, googleLogin, guestLogin } = useAuth();
@@ -56,6 +57,7 @@ export default function Signup() {
             <button onClick={() => guestLogin()} style={{ padding: 8 }}>
                 Continue as Guest
             </button>
+            <Link to="/login">You already have an account?Login..</Link>
         </div>
     );
 }

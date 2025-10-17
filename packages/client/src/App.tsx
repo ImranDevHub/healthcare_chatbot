@@ -1,24 +1,25 @@
 import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
     Navigate,
+    Route,
+    BrowserRouter as Router,
+    Routes,
 } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Chatbot from './components/Chatbot/Chatbot';
-import Navbar from './components/ui/Navbar';
 import { useAuth } from './context/AuthContext';
+import LandingPage from './pages/LandingPage';
 
 function App() {
     const { user } = useAuth();
 
     return (
         <Router>
-            <Navbar />
+            {/* <Navbar /> */}
+            {/* <Header /> */}
             <Routes>
                 <Route path="/" element={<LandingPage />} />
+                {/* <Route path="/" element={<Hero />} /> */}
                 <Route
                     path="/login"
                     element={user ? <Navigate to="/chatbot" /> : <Login />}
