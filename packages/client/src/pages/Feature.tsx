@@ -1,5 +1,5 @@
 import img_feature_2 from '../assets/images/feature-2.1.jpg';
-import img_feature_3 from '../assets/images/feature-3.1.jpg';
+import img_feature_3 from '../assets/images/feature-3.jpg';
 import {
     FingerPrintIcon,
     QuestionMarkCircleIcon,
@@ -188,7 +188,7 @@ export default function FeatureSection() {
                     </div>
                 </div>
             </section>
-            <section className="overflow-hidden bg-gray-900 py-24 sm:py-32">
+            <section className="overflow-hidden bg-gray-900 pt-24 pb-72 sm:pt-32">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         <div className="lg:pt-4 lg:pr-8 lg:order-2">

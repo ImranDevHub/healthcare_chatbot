@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from './Hero';
 import FeatureSection from './Feature';
+import Footer from './Footer';
 
 const LandingPage: React.FC = () => {
     return (
@@ -61,6 +62,7 @@ const LandingPage: React.FC = () => {
                 </div>
             </section> */}
             <FeatureSection />
+            <Footer />
         </>
     );
 };
