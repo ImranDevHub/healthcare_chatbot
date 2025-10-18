@@ -18,6 +18,7 @@ export const signup = async (email: string, password: string) => {
         email,
         password,
     });
+
     return response.data;
 };
 

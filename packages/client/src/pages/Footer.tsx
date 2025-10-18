@@ -18,17 +18,18 @@ const Footer = () => {
     return (
         <footer className="bg-gray-900 pt-20 text-gray-300 relative border-t border-gray-700">
             {/* Call to Action Section */}
-            <div className="text-center py-5 rounded-3xl border border-gray-800 bg-indigo-600 shadow-gray-100/30 shadow-xl/20 w-10/12 mx-auto absolute left-1/2 -translate-x-1/2 -top-1/2">
-                <p className="text-gray-900 font-medium">Get started</p>
+            <div className="text-center py-5 rounded-3xl border border-gray-700 bg-violet-950 shadow-gray-100/30 shadow-xl/20 w-10/12 mx-auto absolute left-1/2 -translate-x-1/2 -top-1/2">
+                <p className="text-indigo-400 font-medium">Get started</p>
                 <h2 className="text-4xl md:text-5xl font-bold mt-2">
-                    Boost your productivity. <br /> Start using our app today.
+                    Boost your health.
+                    <br />
+                    Start using our AI assistant today.
                 </h2>
                 <p className="mt-4 max-w-xl mx-auto text-gray-400">
-                    Incididunt sint fugiat pariatur cupidatat consectetur sit
-                    cillum anim id veniam aliqua proident excepteur commodo do
-                    ea.
+                    Get tailored health advice, track your wellness, and stay
+                    informed with our AI-powered assistant.
                 </p>
-                <button className="mt-6 px-5 py-2 bg-indigo-900 text-white rounded-md hover:bg-gray-950 transition">
+                <button className="mt-6 px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
                     Get started
                 </button>
             </div>

@@ -2,13 +2,10 @@ import { t } from 'elysia';
 import { auth } from '../utils/firebase';
 
 export const signup = async ({ body }: any) => {
-    const { email, password } = body;
-    try {
-        const userRecord = await auth.createUser({ email, password });
-        return { uid: userRecord.uid };
-    } catch (error: any) {
-        throw new Error(error.message);
-    }
+    return {
+        success: true,
+        message: 'Signup handled on client via Firebase.',
+    };
 };
 
 export const login = async ({ body }: any) => {

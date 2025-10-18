@@ -9,6 +9,7 @@ import Signup from './components/Auth/Signup';
 import Chatbot from './components/Chatbot/Chatbot';
 import { useAuth } from './context/AuthContext';
 import LandingPage from './pages/LandingPage';
+import Four04 from './components/404/Four04';
 
 function App() {
     const { user } = useAuth();
@@ -32,6 +33,7 @@ function App() {
                     path="/chatbot"
                     element={user ? <Chatbot /> : <Navigate to="/login" />}
                 />
+                <Route path="*" element={<Four04 />} />
             </Routes>
         </Router>
     );

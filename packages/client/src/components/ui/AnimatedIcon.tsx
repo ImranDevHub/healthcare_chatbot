@@ -6,7 +6,7 @@ const AnimatedIcon = ({ animation, link }) => {
     const [play, setPlay] = useState(false);
 
     return (
-        <Link to={link}>
+        <Link to={link} target="_blank">
             <div
                 onMouseEnter={() => setPlay(true)}
                 onMouseLeave={() => setPlay(false)}
