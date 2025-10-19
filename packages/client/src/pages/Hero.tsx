@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Header from './Header';
 import bgGrid from '/bg-grid-lighter.svg';
 
 export default function Hero() {

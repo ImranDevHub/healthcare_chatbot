@@ -121,7 +121,7 @@ const Header = () => {
                             className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold text-white hover:bg-white/5"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            Log in
+                            Log in &#8594;
                         </Link>
                     )}
                 </div>
@@ -218,7 +218,7 @@ const Header = () => {
                                         className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold text-white hover:bg-white/5"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
-                                        Log in
+                                        Log in &#8594;
                                     </Link>
                                 )}
                             </div>

@@ -5,6 +5,7 @@ import instagram from 'react-useanimations/lib/instagram';
 import linkedin from 'react-useanimations/lib/linkedin';
 import twitter from 'react-useanimations/lib/twitter';
 import logo from '/logo/SHEGAAsset-7@4x.png';
+import { Link } from 'react-router-dom';
 
 const social_medias = [
     { animation: github, link: 'https://github.com' },
@@ -29,9 +30,12 @@ const Footer = () => {
                     Get tailored health advice, track your wellness, and stay
                     informed with our AI-powered assistant.
                 </p>
-                <button className="mt-6 px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition">
+                <Link
+                    to="/signup"
+                    className="mt-6 inline-block px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
+                >
                     Get started
-                </button>
+                </Link>
             </div>
 
             {/* Links Section */}
