@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
-import logo from '../../../public/logo/SHEGAAsset-7@4x.png';
+import logo from '/logo/SHEGAAsset-7@4x.png';
 
 export default function Login() {
     const { login, googleLogin, guestLogin } = useAuth();

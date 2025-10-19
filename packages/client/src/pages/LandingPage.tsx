@@ -62,7 +62,6 @@ const LandingPage: React.FC = () => {
                 </div>
             </section> */}
             <FeatureSection />
-            <Footer />
         </>
     );
 };

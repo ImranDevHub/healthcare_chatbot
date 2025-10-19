@@ -18,7 +18,7 @@ const Footer = () => {
     return (
         <footer className="bg-gray-900 pt-20 text-gray-300 relative border-t border-gray-700">
             {/* Call to Action Section */}
-            <div className="text-center py-5 rounded-3xl border border-gray-700 bg-violet-950 shadow-gray-100/30 shadow-xl/20 w-10/12 mx-auto absolute left-1/2 -translate-x-1/2 -top-1/2">
+            <div className="text-center py-5 rounded-3xl border border-gray-700 bg-gray-950 shadow-gray-100/20 shadow-xl/20 w-10/12 mx-auto absolute left-1/2 -translate-x-1/2 -top-1/2">
                 <p className="text-indigo-400 font-medium">Get started</p>
                 <h2 className="text-4xl md:text-5xl font-bold mt-2">
                     Boost your health.

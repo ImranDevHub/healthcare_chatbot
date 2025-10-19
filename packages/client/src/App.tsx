@@ -1,38 +1,51 @@
-import {
-    Navigate,
-    Route,
-    BrowserRouter as Router,
-    Routes,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Chatbot from './components/Chatbot/Chatbot';
-import { useAuth } from './context/AuthContext';
-import LandingPage from './pages/LandingPage';
 import Four04 from './components/404/Four04';
+import MainLayout from './pages/MainLayout';
+import ProtectedRoute from './components/Auth/ProtectedRoute';
+import PublicRoute from './components/Auth/PublicRoute';
 
 function App() {
-    const { user } = useAuth();
-
     return (
         <Router>
-            {/* <Navbar /> */}
-            {/* <Header /> */}
             <Routes>
-                <Route path="/" element={<LandingPage />} />
-                {/* <Route path="/" element={<Hero />} /> */}
+                {/* Routes with shared layout */}
+                <Route element={<MainLayout />}>
+                    <Route path="/" element={<LandingPage />} />
+                </Route>
+
+                {/* Auth routes */}
                 <Route
                     path="/login"
-                    element={user ? <Navigate to="/chatbot" /> : <Login />}
+                    element={
+                        <PublicRoute>
+                            <Login />
+                        </PublicRoute>
+                    }
                 />
                 <Route
                     path="/signup"
-                    element={user ? <Navigate to="/chatbot" /> : <Signup />}
+                    element={
+                        <PublicRoute>
+                            <Signup />
+                        </PublicRoute>
+                    }
                 />
+
+                {/* Protected routes */}
                 <Route
                     path="/chatbot"
-                    element={user ? <Chatbot /> : <Navigate to="/login" />}
+                    element={
+                        <ProtectedRoute>
+                            <Chatbot />
+                        </ProtectedRoute>
+                    }
                 />
+
+                {/* 404 page */}
                 <Route path="*" element={<Four04 />} />
             </Routes>
         </Router>

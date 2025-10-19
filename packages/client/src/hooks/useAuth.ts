@@ -12,6 +12,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 export const useAuth = () => {
     const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true); // ✅ Add loading state
 
     // Track Firebase Auth state
     useEffect(() => {
@@ -21,14 +22,14 @@ export const useAuth = () => {
             } else {
                 setUser(null);
             }
+            setLoading(false); // ✅ finished loading
         });
+
         return unsubscribe;
     }, []);
 
     const signup = async (email: string, password: string) => {
-        // ✅ signUpWithEmail sends verification & logs out automatically
-        const result = await signUpWithEmail(email, password);
-        alert(result.message);
+        await signUpWithEmail(email, password);
     };
 
     const login = async (email: string, password: string) => {
@@ -65,5 +66,5 @@ export const useAuth = () => {
         setUser(null);
     };
 
-    return { user, signup, login, googleLogin, guestLogin, logout };
+    return { user, loading, signup, login, googleLogin, guestLogin, logout }; // ✅ return loading
 };

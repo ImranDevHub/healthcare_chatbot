@@ -5,8 +5,6 @@ import bgGrid from '/bg-grid-lighter.svg';
 export default function Hero() {
     return (
         <div className="bg-gray-900 h-screen">
-            <Header />
-
             <div className="relative isolate flex h-full items-end">
                 <div className="absolute -z-10">
                     <img src={bgGrid} />
