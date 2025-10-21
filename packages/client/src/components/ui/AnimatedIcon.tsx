@@ -6,19 +6,18 @@ const AnimatedIcon = ({ animation, link }) => {
     const [play, setPlay] = useState(false);
 
     return (
-        <Link to={link} target="_blank">
-            <div
-                onMouseEnter={() => setPlay(true)}
-                onMouseLeave={() => setPlay(false)}
-                className="cursor-pointer"
-            >
-                <UseAnimations
-                    animation={animation}
-                    strokeColor="#E0E0E0"
-                    autoplay={play}
-                    loop={true}
-                />
-            </div>
+        <Link
+            to={link}
+            onMouseEnter={() => setPlay(true)}
+            onMouseLeave={() => setPlay(false)}
+            target="_blank"
+        >
+            <UseAnimations
+                animation={animation}
+                strokeColor="#E0E0E0"
+                autoplay={play}
+                loop={true}
+            />
         </Link>
     );
 };
