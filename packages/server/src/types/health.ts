@@ -12,6 +12,7 @@ export type UserProfile = {
         | 'low-carb';
     sleepHours?: number;
     conditions?: string[];
+    concern: string;
 };
 
 export type Suggestion = {

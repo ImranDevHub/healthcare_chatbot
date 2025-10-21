@@ -1,80 +1,56 @@
 import { Elysia, t } from 'elysia';
-import { getPineconeClient, queryPinecone } from '../services/pinecone';
-import { getLlamaAnswer, callOllamaDirectly } from '../services/llama';
+import fs from 'fs';
+import OpenAI from 'openai';
+import path from 'path';
+import template from '../prompts/chatbot.txt';
 
-import z from 'zod';
-
-// --- Constants ---
-const INDEX_NAME = 'medical-chatbot-1';
-const MEDICAL_KEYWORDS = [
-    'health',
-    'medical',
-    'condition',
-    'disease',
-    'symptom',
-    'pain',
-    'fever',
-    'treatment',
-    'therapy',
-    'medicine',
-    'drug',
-    'diabetes',
-    'cancer',
-    'acne',
-];
-
-/**
- * Checks if a question is health-related based on keywords.
- */
-function isHealthQuery(question: string): boolean {
-    const lowerCaseQuestion = question.toLowerCase();
-    return MEDICAL_KEYWORDS.some(keyword =>
-        lowerCaseQuestion.includes(keyword)
-    );
-}
-
-const chatSchema = z.object({
-    question: z
-        .string()
-        .trim()
-        .min(1, 'Prompt is required.')
-        .max(1000, 'Prompt is too long. Maximum length is 1000 characters.'),
-    conversationId: z.string().uuid(),
+// 1. Initialize OpenRouter Client
+const openai = new OpenAI({
+    baseURL: 'https://openrouter.ai/api/v1',
+    apiKey: process.env.OPENROUTER_API_KEY!,
+    defaultHeaders: {
+        'HTTP-Referer': process.env.SITE_URL!,
+        'X-Title': process.env.SITE_TITLE!,
+    },
 });
+
+// 2. Load and Prepare Prompts
+const MEDICAL_INFO = fs.readFileSync(
+    path.join(path.dirname(__dirname), 'prompts', 'medical_knowledge_base.md'),
+    'utf-8'
+);
+
+// This is a placeholder. In a real app, you'd get this from the user's session or a database.
+const instruction = template.replace('{{MEDICAL_INFO}}', MEDICAL_INFO);
+
+// 3. Define the Chat Route
 export const chatRoutes = new Elysia({ prefix: '/api/chat' }).post(
     '/',
     async ({ body, set }) => {
-        const validatedBody = chatSchema.safeParse(body);
-
-        if (!validatedBody.success) {
-            set.status = 400;
-            return { error: validatedBody.error.format() };
-        }
-        console.log('[API] Chat request received');
-        console.log(body);
         const { question } = body;
 
-        let answer: string;
+        if (!question || typeof question !== 'string') {
+            set.status = 400;
+            return { error: 'Question is required and must be a string.' };
+        }
 
         try {
-            // if (isHealthQuery(question)) {
-            //     console.log('[API] Mode: HEALTH → Pinecone');
-            //     const pineconeClient = await getPineconeClient();
-            //     const context = await queryPinecone(
-            //         pineconeClient,
-            //         INDEX_NAME,
-            //         question
-            //     );
+            console.log('[API] Sending request to OpenRouter...');
+            const completion = await openai.chat.completions.create({
+                model: 'google/gemini-2.0-flash-exp:free',
+                messages: [
+                    { role: 'system', content: instruction },
+                    { role: 'user', content: question },
+                ],
+            });
 
-            //     if (context) {
-            //         answer = await getLlamaAnswer(context, question);
-            //     } else {
-            //         answer = 'I don’t have enough medical data to answer that.';
-            //     }
-            // } else {
-            console.log('[API] Mode: GENERAL → LLM');
-            answer = await callOllamaDirectly(question);
-            // }
+            const answer = completion.choices[0]?.message?.content;
+            console.log('[API] Received response from OpenRouter.');
+
+            if (!answer) {
+                set.status = 500;
+                return { error: 'Failed to get a response from the model.' };
+            }
 
             return { answer };
         } catch (error) {
@@ -86,7 +62,7 @@ export const chatRoutes = new Elysia({ prefix: '/api/chat' }).post(
     {
         body: t.Object({
             question: t.String(),
-            conversationId: t.String(),
+            conversationId: t.String(), // Kept for compatibility
         }),
     }
 );
