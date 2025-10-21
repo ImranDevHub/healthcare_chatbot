@@ -17,7 +17,7 @@ import logo from '/logo/SHEGAAsset-7@4x.png';
 const navigation = [
     { name: 'Chatbot', href: '/chatbot' },
     { name: 'Symptom Checking', href: '#' },
-    { name: 'Health Suggestion', href: '#' },
+    { name: 'Health Suggestion', href: 'health-form' },
     { name: 'Condition Evaluation', href: '#' },
 ];
 

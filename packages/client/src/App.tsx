@@ -1,12 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
-import Login from './components/Auth/Login';
-import Signup from './components/Auth/Signup';
-import Chatbot from './components/Chatbot/Chatbot';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Four04 from './components/404/Four04';
-import MainLayout from './pages/MainLayout';
+import Login from './components/Auth/Login';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import PublicRoute from './components/Auth/PublicRoute';
+import Signup from './components/Auth/Signup';
+import Chatbot from './components/Chatbot/Chatbot';
+import HealthForm from './pages/HealthForm';
+import LandingPage from './pages/LandingPage';
+import MainLayout from './pages/MainLayout';
 
 function App() {
     return (
@@ -15,6 +16,14 @@ function App() {
                 {/* Routes with shared layout */}
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<LandingPage />} />
+                    <Route
+                        path="/health-form"
+                        element={
+                            <ProtectedRoute>
+                                <HealthForm />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Route>
 
                 {/* Auth routes */}

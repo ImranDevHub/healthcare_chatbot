@@ -1,6 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 import ollama from 'ollama';
+import path from 'path';
 import template from '../prompts/chatbot.txt';
 
 const medicalInfo = fs.readFileSync(
@@ -50,7 +50,7 @@ export async function callOllamaDirectly(question: string): Promise<string> {
                 { role: 'user', content: question },
             ],
             options: {
-                num_predict: 500, // Limits how long the response is → faster
+                num_predict: 200, // Limits how long the response is → faster
             },
         });
 
