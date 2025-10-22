@@ -8,6 +8,7 @@ import Chatbot from './components/Chatbot/Chatbot';
 import HealthForm from './pages/HealthForm';
 import LandingPage from './pages/LandingPage';
 import MainLayout from './pages/MainLayout';
+import SymptomChecker from './pages/SymptomChecker';
 
 function App() {
     return (
@@ -21,6 +22,14 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <HealthForm />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/symptom-checker"
+                        element={
+                            <ProtectedRoute>
+                                <SymptomChecker />
                             </ProtectedRoute>
                         }
                     />
