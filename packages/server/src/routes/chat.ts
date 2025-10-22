@@ -20,7 +20,6 @@ const MEDICAL_INFO = fs.readFileSync(
     'utf-8'
 );
 
-// This is a placeholder. In a real app, you'd get this from the user's session or a database.
 const instruction = template.replace('{{MEDICAL_INFO}}', MEDICAL_INFO);
 
 // 3. Define the Chat Route

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import axios from 'axios';
+import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import type { Suggestion } from '../types/health';
 
 const HealthForm: React.FC = () => {
@@ -287,10 +288,14 @@ const HealthForm: React.FC = () => {
                                     className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg"
                                 >
                                     <h3 className="font-bold text-blue-900">
-                                        {suggestion.title}
+                                        <ReactMarkdown>
+                                            {suggestion.title}
+                                        </ReactMarkdown>
                                     </h3>
                                     <p className="text-gray-700">
-                                        {suggestion.details}
+                                        <ReactMarkdown>
+                                            {suggestion.details}
+                                        </ReactMarkdown>
                                     </p>
                                 </div>
                             ))}
