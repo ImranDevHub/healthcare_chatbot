@@ -1,3 +1,9 @@
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/components/ui/accordion';
 import axios from 'axios';
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -75,6 +81,7 @@ const HealthForm: React.FC = () => {
 
             setSuggestions(parsedSuggestions);
             setDisclaimer(response.data.disclaimer);
+            console.log(suggestions.length);
         } catch (err) {
             setError('Failed to fetch suggestions. Please try again later.');
             console.error(err);
@@ -281,25 +288,25 @@ const HealthForm: React.FC = () => {
                         <h2 className="text-xl font-semibold text-gray-800 mb-4">
                             Your Suggestions
                         </h2>
-                        <div className="space-y-4">
+                        <Accordion type="single" collapsible>
                             {suggestions.map(suggestion => (
-                                <div
-                                    key={suggestion.id}
-                                    className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg"
+                                <AccordionItem
+                                    value={suggestion.id}
+                                    className="bg-gray-900 border-l-4 border-indigo-900 p-4 rounded-r-lg text-gray-200"
                                 >
-                                    <h3 className="font-bold text-blue-900">
+                                    <AccordionTrigger>
                                         <ReactMarkdown>
                                             {suggestion.title}
                                         </ReactMarkdown>
-                                    </h3>
-                                    <p className="text-gray-700">
+                                    </AccordionTrigger>
+                                    <AccordionContent>
                                         <ReactMarkdown>
                                             {suggestion.details}
                                         </ReactMarkdown>
-                                    </p>
-                                </div>
+                                    </AccordionContent>
+                                </AccordionItem>
                             ))}
-                        </div>
+                        </Accordion>
                         {disclaimer && (
                             <p className="mt-4 text-sm text-gray-500 text-center">
                                 {disclaimer}
