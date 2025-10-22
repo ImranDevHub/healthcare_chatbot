@@ -42,7 +42,7 @@ const ChatInput = ({ onSubmit, isBotActive }: Props) => {
                     validate: value => value.trim().length > 0,
                 })}
                 autoFocus
-                placeholder="Ask  anything..."
+                placeholder="Ask anything..."
                 maxLength={1000}
                 className="w-full border-0 focus-visible:ring-0 bg-transparent text-gray-200"
             />

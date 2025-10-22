@@ -8,6 +8,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import type { Suggestion } from '../types/health';
+import { Textarea } from '@/components/ui/textarea';
 
 const HealthForm: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -91,7 +92,7 @@ const HealthForm: React.FC = () => {
     };
 
     return (
-        <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4">
+        <div className="bg-gray-900 min-h-screen flex items-center justify-center p-4 mt-16">
             <div className="w-full max-w-2xl mx-auto bg-gray-800 rounded-lg shadow-md p-8">
                 <h1 className="text-2xl font-bold text-gray-300 mb-6 text-center">
                     Personalized Health Suggestions
@@ -102,7 +103,7 @@ const HealthForm: React.FC = () => {
                         <div>
                             <label
                                 htmlFor="age"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Age
                             </label>
@@ -112,14 +113,14 @@ const HealthForm: React.FC = () => {
                                 id="age"
                                 value={formData.age}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
+                                className="mt-1 block w-full p-1 rounded bg-gray-700 border border-gray-600 focus:outline-none text-gray-300"
                                 required
                             />
                         </div>
                         <div>
                             <label
                                 htmlFor="gender"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Gender
                             </label>
@@ -128,7 +129,7 @@ const HealthForm: React.FC = () => {
                                 id="gender"
                                 value={formData.gender}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
+                                className="mt-1 block w-full px-3 py-1 rounded bg-gray-700 border border-gray-600 focus:outline-none text-gray-300"
                             >
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -142,7 +143,7 @@ const HealthForm: React.FC = () => {
                         <div>
                             <label
                                 htmlFor="activity"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Activity Level
                             </label>
@@ -151,7 +152,7 @@ const HealthForm: React.FC = () => {
                                 id="activity"
                                 value={formData.activity}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
+                                className="mt-1 block w-full p-1 rounded bg-gray-700 border border-gray-600 focus:outline-none text-gray-300"
                             >
                                 <option value="low">Low</option>
                                 <option value="moderate">Moderate</option>
@@ -161,7 +162,7 @@ const HealthForm: React.FC = () => {
                         <div>
                             <label
                                 htmlFor="goal"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Primary Goal
                             </label>
@@ -170,7 +171,7 @@ const HealthForm: React.FC = () => {
                                 id="goal"
                                 value={formData.goal}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
+                                className="mt-1 block w-full px-3 py-1 rounded bg-gray-700 border border-gray-600 focus:outline-none text-gray-300"
                             >
                                 <option value="lose">Lose Weight</option>
                                 <option value="maintain">
@@ -186,7 +187,7 @@ const HealthForm: React.FC = () => {
                         <div>
                             <label
                                 htmlFor="diet"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Diet (Optional)
                             </label>
@@ -195,7 +196,7 @@ const HealthForm: React.FC = () => {
                                 id="diet"
                                 value={formData.diet}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
+                                className="mt-1 block w-full px-3 py-1 rounded bg-gray-700 border border-gray-600 focus:outline-none text-gray-300"
                             >
                                 <option value="">Select Diet</option>
                                 <option value="normal">Normal</option>
@@ -209,7 +210,7 @@ const HealthForm: React.FC = () => {
                         <div>
                             <label
                                 htmlFor="sleepHours"
-                                className="block text-sm font-medium text-gray-700"
+                                className="block text-sm font-medium text-gray-300"
                             >
                                 Sleep Hours (Optional)
                             </label>
@@ -219,7 +220,7 @@ const HealthForm: React.FC = () => {
                                 id="sleepHours"
                                 value={formData.sleepHours}
                                 onChange={handleChange}
-                                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
+                                className="mt-1 block w-full px-3 py-1 rounded bg-gray-700 border border-gray-600 focus:outline-none text-gray-300"
                             />
                         </div>
                     </div>
@@ -228,7 +229,7 @@ const HealthForm: React.FC = () => {
                     <div>
                         <label
                             htmlFor="conditions"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-300"
                         >
                             Existing Conditions (Optional, comma-separated)
                         </label>
@@ -239,7 +240,7 @@ const HealthForm: React.FC = () => {
                             value={formData.conditions}
                             onChange={handleChange}
                             placeholder="e.g., stress, high blood pressure"
-                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
+                            className="mt-1 block w-full px-3 py-1 rounded bg-gray-700 border border-gray-600 focus:outline-none text-gray-300"
                         />
                     </div>
 
@@ -247,19 +248,20 @@ const HealthForm: React.FC = () => {
                     <div>
                         <label
                             htmlFor="concern"
-                            className="block text-sm font-medium text-gray-700"
+                            className="block text-sm font-medium text-gray-300"
                         >
                             What do you want to improve?
                         </label>
-                        <textarea
-                            name="concern"
-                            id="concern"
+                        <Textarea
+                            autoFocus
                             value={formData.concern}
                             onChange={handleChange}
-                            rows={3}
-                            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md"
                             placeholder="e.g., better sleep, more energy, muscle growth, stress relief"
+                            maxLength={1000}
+                            className="w-full border-1 focus-visible:ring-0 bg-transparent text-gray-200"
                             required
+                            name="concern"
+                            id="concern"
                         />
                     </div>
 

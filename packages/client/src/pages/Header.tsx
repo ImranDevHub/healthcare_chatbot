@@ -8,8 +8,8 @@ import {
     MenuItems,
 } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import UseAnimations from 'react-useanimations';
 import menu from 'react-useanimations/lib/menu';
 import logo from '/logo/SHEGAAsset-7@4x.png';
@@ -22,37 +22,97 @@ const navigation = [
 ];
 
 const Header = () => {
-    const navigate = useNavigate();
+    const location = useLocation();
     const { user, logout } = useAuth();
-
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isSticky, setIsSticky] = useState(false);
+    const headerRef = useRef<HTMLElement>(null);
+    const scrollPosition = useRef(0);
+    const ticking = useRef(false);
 
     const handleLogout = async () => {
         try {
             await logout();
-            navigate('/');
+            window.location.href = '/';
         } catch (error) {
             console.error('Failed to log out', error);
         }
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollPos = window.pageYOffset;
+            const heroSection = document.querySelector('.hero-section');
+
+            if (heroSection) {
+                const heroBottom = heroSection.getBoundingClientRect().bottom;
+                const isPastHero = heroBottom <= 0;
+
+                setIsSticky(isPastHero);
+                setIsScrolled(currentScrollPos > 10);
+            }
+
+            scrollPosition.current = currentScrollPos;
+            ticking.current = false;
+        };
+
+        const onScroll = () => {
+            if (!ticking.current) {
+                window.requestAnimationFrame(handleScroll);
+                ticking.current = true;
+            }
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Initial check in case page loads with scroll
+        handleScroll();
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+        };
+    }, [location.pathname]);
+
+    // Close mobile menu when navigating
+    useEffect(() => {
+        setMobileMenuOpen(false);
+    }, [location]);
+
+    const headerClasses = `inset-x-0 z-50 transition-all duration-300  ${
+        isSticky
+            ? 'fixed top-0 bg-transparent shadow-md backdrop-blur-sm'
+            : `absolute top-0 ${isScrolled ? 'bg-gray-900/80 backdrop-blur-sm' : 'bg-transparent'}`
+    }`;
+
     return (
-        <header className="absolute inset-x-0 top-0 z-50">
+        <header ref={headerRef} className={headerClasses}>
             <nav
                 aria-label="Global"
                 className="flex items-center justify-between p-6 lg:px-8"
             >
                 <div className="flex lg:flex-1">
-                    <Link to="/" className="-m-1.5 p-1.5">
+                    <Link
+                        to="/"
+                        className="-m-1.5 p-1.5 transition-opacity hover:opacity-90"
+                    >
                         <span className="sr-only">ሸጋ Health</span>
-                        <img alt="" src={logo} className="h-8 w-auto" />
+                        <img
+                            alt=""
+                            src={logo}
+                            className={`w-auto transition-all duration-300 ${isSticky ? 'h-7' : 'h-8'}`}
+                        />
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
                     <button
                         type="button"
                         onClick={() => setMobileMenuOpen(true)}
-                        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200"
+                        className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 transition-colors ${
+                            isSticky
+                                ? 'text-gray-300 hover:text-gray-500'
+                                : 'text-gray-200 hover:text-white'
+                        }`}
                     >
                         <span className="sr-only">Open main menu</span>
                         <UseAnimations
@@ -67,7 +127,11 @@ const Header = () => {
                         <a
                             key={item.name}
                             href={item.href}
-                            className="text-sm/6 font-semibold text-white"
+                            className={`text-sm/6 font-semibold transition-colors duration-200 ${
+                                isSticky
+                                    ? 'text-gray-400 hover:text-gray-200'
+                                    : 'text-white hover:text-gray-300'
+                            }`}
                         >
                             {item.name}
                         </a>
@@ -78,7 +142,13 @@ const Header = () => {
                     {user ? (
                         <Menu as="div" className="relative px-3">
                             <MenuButton className="flex items-center gap-3 rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                                <span className="size-8 rounded-full bg-white text-indigo-900 font-bold flex items-center justify-center outline-2 outline-offset-2 outline-indigo-700">
+                                <span
+                                    className={`size-8 rounded-full flex items-center justify-center outline-2 outline-offset-2 transition-all duration-300 ${
+                                        isSticky
+                                            ? 'bg-indigo-600 text-white outline-indigo-300'
+                                            : 'bg-white text-indigo-900 outline-indigo-700'
+                                    }`}
+                                >
                                     {user.email?.charAt(0).toUpperCase()}
                                 </span>
                             </MenuButton>
